@@ -7,7 +7,7 @@ Remote [Google Drive client](https://github.com/ewwink/heroku-google-drive) on H
 Create new app
 
 ```
-heroku create myapp --b https://github.com/ewwink/heroku-google-drive.git
+heroku create myapp -b https://github.com/ewwink/heroku-google-drive.git
 heroku git:clone -a myapp
 ```
 
