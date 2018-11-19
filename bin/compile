@@ -20,7 +20,13 @@ if ! [ -e "$CACHE_DIR/$FILE" ]; then
   echo "-----> Fetching Latest Rclone binaries at ${DOWNLOAD_URL}" | indent
   wget $DOWNLOAD_URL -q -O "$CACHE_DIR/$FILE"
 else
-  echo "build using cached source"  | indent
+  filestr=$(find . -name "$CACHE_DIR/$FILE" -mtime +1 -print)
+  if [ "$filestr" = "" ]; then
+    echo "-----> cache Expired, Fetching Latest Rclone at ${DOWNLOAD_URL}" | indent
+    wget $DOWNLOAD_URL -q -O "$CACHE_DIR/$FILE"
+  else
+    echo "build using cached source"  | indent
+  fi
 fi
 
 cd "$BUILD_DIR"
@@ -118,9 +124,5 @@ if [ -f "id_rsa" ]; then
 else
   echo "id_rsa not exist"  | indent
 fi
-EOF
-
-
-
 
 
