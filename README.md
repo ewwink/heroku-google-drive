@@ -1,23 +1,23 @@
 
 
 # Heroku Google Drive
-Remote [Google Drive client](https://github.com/ewwink/heroku-google-drive) on Heroku using Rclone and Aria2
+Forked from: Remote [Google Drive client](https://github.com/ewwink/heroku-google-drive) on Heroku using Rclone
 
 ## Installation
 Create new app
 
 ```
-heroku create myapp -b https://github.com/ewwink/heroku-google-drive.git
+heroku create myapp -b https://github.com/shayan-oanda/heroku-google-drive.git
 heroku git:clone -a myapp
 ```
 
 Existing app, use: `add|set`
 
 ```
-heroku buildpacks:set https://github.com/ewwink/heroku-google-drive.git -a myapp
+heroku buildpacks:set https://github.com/shayan-oanda/heroku-google-drive.git -a myapp
 ```
 
-go to `myapp` directory, create or copy `rclone.conf` and winrar registraton key `.rarreg.key` (optional) then commit the change
+go to `myapp` directory, create or copy `rclone.conf` then commit the change
 
 ```
 cd myapp
@@ -71,25 +71,3 @@ view option:
 `lsd` only show file in current directory
 
 `ls` show file including in subdirectory (recursvely)
-
-## Bonus
-**Download file using `Aria2`**
-
-Aria2 is command-line download accelerator
-```
-aria2c -x4 http://host/file.rar
-```
-`-x4` mean download using 4 connection
-
-**To extract `.rar` file**
-
-to current directory
-```
-unrar e file.rar
-```
-
-with full path
-
-```
-unrar x file.rar
-```

@@ -44,62 +44,6 @@ mkdir -p "$(dirname "$PROFILE_PATH")"
 echo 'export PATH="$PATH:${HOME}/vendor/rclone"' >> $PROFILE_PATH
 echo "Rclone installed"  | indent
 
-###### install aria2 ##########
-echo "-----> Installing Aria2"
-
-FILE="aria2-1.34.0-linux-gnu-64bit-build1"
-FILE_ARC="${FILE}.tar.bz2"
-DOWNLOAD_URL="https://github.com/q3aql/aria2-static-builds/releases/download/v1.34.0/$FILE_ARC"
-
-if ! [ -e "$CACHE_DIR/$FILE_ARC" ]; then
-  echo "-----> Fetching Aria2 binaries at ${DOWNLOAD_URL}" | indent
-  wget "$DOWNLOAD_URL" -q -O "$CACHE_DIR/$FILE_ARC"
-else
-  echo "build using cached source"  | indent
-fi
-
-
-cd "$BUILD_DIR/$VENDOR_DIR"
-mkdir -p aria2c
-cd aria2c
-cp "$CACHE_DIR/$FILE_ARC" .
-tar jxf "$FILE_ARC"
-mv "$FILE"/* .
-rm -rf "$FILE_ARC" "$FILE"
-
-echo "exporting PATH" | indent
-PROFILE_PATH="$BUILD_DIR/.profile.d/aria2c.sh"
-mkdir -p "$(dirname "$PROFILE_PATH")"
-echo 'export PATH="$PATH:${HOME}/vendor/aria2c"' >> $PROFILE_PATH
-
-#### install winrar ########
-
-echo "-----> Installing winrar"
-
-FILE="rarlinux-x64-5.6.b4.tar.gz"
-DOWNLOAD_URL="https://www.rarlab.com/rar/$FILE"
-
-if ! [ -e "$CACHE_DIR/$FILE" ]; then
-  echo "-----> Fetching Winrar binaries at ${DOWNLOAD_URL}" | indent
-  wget $DOWNLOAD_URL -q -O "$CACHE_DIR/$FILE"
-else
-  echo "build using cached source"  | indent
-fi
-
-cd "$BUILD_DIR/$VENDOR_DIR"
-mkdir -p winrar
-cd winrar
-cp "$CACHE_DIR/$FILE" .
-tar xf "$CACHE_DIR/$FILE" --strip-components=1
-
-echo "exporting PATH" | indent
-PROFILE_PATH="$BUILD_DIR/.profile.d/rar.sh"
-mkdir -p "$(dirname "$PROFILE_PATH")"
-echo 'export PATH="$PATH:${HOME}/vendor/winrar"' >> $PROFILE_PATH
-PROFILE_PATH="$BUILD_DIR/.profile.d/unrar.sh"
-mkdir -p "$(dirname "$PROFILE_PATH")"
-echo 'export PATH="$PATH:${HOME}/vendor/winrar"' >> $PROFILE_PATH
-
 #### moving rclone.conf ########
 
 mkdir -p "$BUILD_DIR"/.profile.d
@@ -124,5 +68,3 @@ if [ -f "id_rsa" ]; then
 else
   echo "id_rsa not exist"  | indent
 fi
-
-
